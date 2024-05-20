@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <title>Covoiturage</title>
+</head>
+<style>
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: right;
+        align-items: baseline;
+        max-width: 18rem;
+    }
+</style>
+<body>
+    {% include 'navTransport.html' %}
+
+    <div class="container">
+        <h1 class="mt-5 text-center text-info">Liste de covoiturage</h1>
+        <div class="row">
+            {% for trajet in liste %}
+                <div class="col-md-4 mb-4"> <!-- Use col-md-4 for medium screens, adjust as needed -->
+                    <div class="card">
+                        {% if trajet.get_type_display == 'Offre' %}
+                            <img src="/media/offre.png" class="card-img-top" alt="green iguana" />
+                        {% else %}
+                            <img src="/media/demande.png" class="card-img-top" alt="green iguana" />
+                        {% endif %}
+                        <div class="card-body">
+                            <p class="card-text">
+                                <span><strong>Conducteur:</strong> {{ trajet.profile_name}}</span>
+                            </p>
+                            <input hidden id="TrajetId" value="{{trajet.id}}">
+                        </div>
+                        <ul class="list-group list-group-flush border-start-0 border-end-0">
+                            <li class="list-group-item px-3 "><strong>From:</strong> {{ trajet.point_depart }}</li>
+                            <li class="list-group-item px-3"><strong>To:</strong> {{ trajet.destination }}</li>
+                            <li class="list-group-item px-3"><strong >Heure départ:</strong> <span class="heure_depart"> {{trajet.heure_depart }}</span></li>
+                            {% if trajet.get_type_display == 'Offre' %}
+                                <li class="list-group-item px-3"><strong>Place(s) disponibles :</strong> {{ trajet.nb_places }}</li>
+                            {% else %}  
+                                <li class="list-group-item px-3"><strong>Place(s) demandé :</strong> {{ trajet.nb_places }}</li>
+                            {% endif %}
+                            <li class="list-group-item px-3"><strong>Contact:</strong> {{ trajet.conducteur.email }}</li>
+                        </ul>
+                        <div class="card-footer d-flex  justify-content-around w-100">
+                        <!-- Inside the card-footer div -->
+                            <button  type="button" class="btn btn-link p-0 me-auto fw-bold btn-link edit-trajet data-id" data-id="{{trajet.id}}"  data-toggle="modal" data-target="#editModal"><i class="fas fa-edit fa-lg"></i></button>
+                            <button class="btn btn-subtle delete-trajet" onclick="deleteTrajet('{{ trajet.id }}')" type="button"><i class="fas text-danger fa-trash fa-lg"></i></button>
+                            <button class="btn btn-subtle"data-id="{{ trajet.id }}" type="button"><i class="fas fa-heart fa-lg"></i></button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Covoiturage</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form for editing covoiturage details -->
+                <form id="editTrajetForm" method="POST">
+                    {% csrf_token %}
+                    <!-- Add form fields here -->
+                    <div class="form-group">
+                        <label for="editDeparture">Point de départ:</label>
+                        <input  type="text" class="form-control" id="editDeparture" name="point_depart" value="{{ trajet.point_depart }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDestination">Déstination:</label>
+                        <input type="text" class="form-control" id="editDestination" name="destination" value="{{ trajet.destination }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="heure_depart">Départure:</label>
+                        <input type="text" class="form-control" id="heure_depart" name="heure_depart" placeholder="HH:MM" value="{{ trajet.heure_depart }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="nb_places">Place demandé:</label>
+                        <input type="text" class="form-control" id="nb_places" name="nb_places" value="{{ trajet.nb_places }}">
+                    </div>
+                   
+                    <!-- Other fields -->
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">Confirmer</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+       // Function for editing a trajet
+       $(document).ready(function () {
+        $('.edit-trajet').click(function () {
+        var trajetId = $(this).data('id');
+        var card = $(this).closest('.card'); // Find the parent card element
+        var departure = card.find('.list-group-item:nth-child(1)').contents().filter(function () {
+            return this.nodeType == 3; // Filter out text nodes
+        }).text().trim(); // Extract departure
+        var destination = card.find('.list-group-item:nth-child(2)').contents().filter(function () {
+            return this.nodeType == 3; // Filter out text nodes
+        }).text().trim(); // Extract destination
+        var heureDepart = card.find('.heure_depart').contents().text().trim(); // Extract heure_depart
+        var nbPlaces = card.find('.list-group-item:nth-child(4)').contents().filter(function () {
+            return this.nodeType == 3; // Filter out text nodes
+        }).text().trim(); // Extract nb_places
+
+        // Update modal with extracted data
+        $('#editTrajetId').val(trajetId);
+        $('#editDeparture').val(departure);
+        $('#editDestination').val(destination);
+        $('#heure_depart').val(heureDepart);
+        $('#nb_places').val(nbPlaces);
+        
+    $('#editTrajetForm').submit(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '/edit-trajet/' + trajetId ,  
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+                location.reload();
+                $('#exampleModal').modal('hide');
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                alert('Error editing logement.');
+            }
+        });
+    });
+    
+    });
+});
+            
+        // Function for deleting a trajet
+        function deleteTrajet(trajetId) {
+            if (confirm('Are you sure you want to delete this logement?')) {
+                // Perform AJAX request to delete the trajet
+                $.ajax({
+                    url: `/delete-trajet/${trajetId}/`, // Update with your URL endpoint for deletion
+                    type: 'POST',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}' // Include the CSRF token
+                    },
+                    success: function(data) {
+                        // Reload the page or update the UI as needed
+                        window.location.reload(); // For example, reload the page
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error); // Log any errors
+                    }
+                });
+            }
+        }
+    </script>
+        
+    <!-- Bootstrap JS (Optional, if needed) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

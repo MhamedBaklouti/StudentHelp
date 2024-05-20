@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Application de Logement</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">Acceuil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'liste_logement' %}">Liste Logements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'add_logement' %}">Add Logement</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'mes_logement_posts' %}">Mes Postes</a>
+        </li>
+      </ul>
+    </div>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+      <img class="avatar avatar-sm mr-2" src="{{ user.profile.image.url }}" /></li>
+      <li class="navbar-text">
+          {% if user.is_authenticated %}
+              Bienvenue {{ user.username }} !
+        </li>
+                <li class="nav-item container">
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link nav-link ">Logout</button>
+                    </form>
+                </li>
+            {% endif %}
+        </ul>
+  </nav>
+  

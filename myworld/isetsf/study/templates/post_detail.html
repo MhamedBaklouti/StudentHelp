@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon" />
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <title>Post Details</title>
+</head>
+
+<style>
+  .liked{
+    color: blue;
+  }
+  .home {
+    position: relative;
+    font-family: Poppins;
+    height: 100vh;
+    padding: 32px;
+    display: grid;
+    place-items: center;
+    background-color: var(--background);
+    left: 250px;
+    width: calc(100% - 250px);
+    transition: var(--body-color);
+    transition: var(--tran-05);
+  }
+  .home .text {
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--text-color);
+    padding: 8px 40px;
+  }
+  .sidebar.close ~ .home {
+    left: 88px;
+    width: calc(100% - 88px);
+  }
+
+  .nav {
+    height: 70px;
+    width: 100%;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    box-shadow: 0px 1px 3px #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+  }
+
+  .nav .nav-left,
+  .nav .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav .nav-left > img {
+    width: 40px;
+  }
+
+  .nav .nav-left > input {
+    height: 40px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    background-color: #eee;
+    margin-left: 10px;
+  }
+
+  .nav .navigation-middle {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 5px;
+  }
+
+  .nav .navigation-middle a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    margin: 0px 10px;
+  }
+
+  .nav .navigation-middle a.active {
+    color: royalblue;
+    position: relative;
+  }
+
+  .nav .navigation-middle a.active::after {
+    content: "";
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: royalblue;
+  }
+
+  .nav .navigation-middle a > i {
+    font-size: 25px;
+  }
+
+  .nav .nav-right .profile,
+  .container .left-panel .profile {
+    background: url("./images/dp.jpg");
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .post-image {
+    max-width: 70%;
+  }
+  .nav .nav-right a {
+    text-decoration: none;
+    color: #333;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background: #eee;
+    display: grid;
+    place-items: center;
+    margin-left: 1rem;
+  }
+
+  .nav .nav-right a > i {
+    font-size: 18px;
+  }
+
+  .container {
+    background: #eee;
+    display: flex;
+  
+    align-items: start;
+    justify-content: start;
+  }
+
+  .container .left-panel,
+  .container .right-panel {
+    position: sticky;
+    top: 70px;
+    width: 250px;
+    height: calc(100vh - 70px);
+  }
+
+  .container .left-panel ul {
+    padding: 10px 0px;
+  }
+
+  .container .left-panel ul li {
+    list-style: none;
+    display: flex;
+    padding: 0.7rem 1rem;
+    align-items: center;
+    transition: 0.3s;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .container .left-panel ul li:hover {
+    background: #ddd;
+  }
+
+  .container .left-panel ul li > p {
+    margin-left: 10px;
+  }
+
+  .container .left-panel ul li > i {
+    font-size: 20px;
+    color: slateblue;
+  }
+
+  .container .left-panel ul li > i.fa-calendar-week {
+    color: tomato;
+  }
+
+  .container .left-panel ul li i.fa-briefcase {
+    color: green;
+  }
+
+  .container .left-panel ul li i.fa-star {
+    color: yellowgreen;
+  }
+
+  .container .left-panel ul li i.fa-hands-helping {
+    color: indianred;
+  }
+
+  .container .left-panel .footer-links {
+    padding: 5px 1rem;
+  }
+
+  .container .left-panel .footer-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+  }
+
+  .middle-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20%;
+    margin-bottom: 20%;
+  }
+  .edit:hover{
+    background-color: #3F8CFF;
+    color: #fff;
+  }
+  .supp:hover{
+    background-color: #DF3731;
+    color: #fff;
+  }
+
+  .middle-panel .story-section {
+    display: flex;
+    padding: 1rem;
+  }
+
+  .middle-panel .story-section .story {
+    width: 120px;
+    height: 200px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 0px 5px;
+    box-shadow: 0 0 5px 5px #ddd;
+    background: #fff;
+  }
+
+  .middle-panel .story-section .story > img {
+    height: 100%;
+    transition: 0.3s ease-in;
+  }
+
+  .middle-panel .story-section .story:hover > img {
+    transform: scale(1.05);
+  }
+
+  .middle-panel .story-section .story .dp-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: royalblue 4px solid;
+  }
+
+  .middle-panel .story-section .story .dp-container > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .middle-panel .story-section .story .name {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 5px;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .middle-panel .story-section .story.create .dp-image {
+    height: 80%;
+    overflow: hidden;
+  }
+
+  .middle-panel .story-section .story.create .dp-image img {
+    width: 100%;
+  }
+
+  .middle-panel .story-section .story.create .dp-container {
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: grid;
+    place-items: center;
+    background: royalblue;
+    border: 4px solid #fff;
+  }
+
+  .middle-panel .story-section .story.create .dp-container i {
+    color: #fff;
+  }
+
+  .middle-panel .story-section .story.create .name {
+    color: #000;
+    font-size: 15px;
+    left: 10px;
+  }
+
+  .post {
+    width: 550px;
+    background: #fff;
+    border-radius: 10px;
+    top: -100px;
+    
+  }
+
+  .post .post-top {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .post .post-top .dp {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .post .post-top .dp > img {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .post .post-top .post-info {
+    margin-left: 10px;
+    font-weight: bold;
+  }
+
+  .post .post-top .post-info .name {
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .post .post-top .post-info .time {
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .dropdown-top-left {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  .dropdown-top-left:hover {
+    cursor: pointer;
+  }
+
+  .post .post-top i {
+    margin-left: auto;
+    cursor: pointer;
+  }
+
+  .post .post-top > input {
+    height: 40px;
+    padding: 5px 10px;
+    border-radius: 25px;
+    outline: none;
+    border: none;
+    flex: 1;
+    background: #eee;
+    margin-left: 10px;
+  }
+
+  .post .post-content {
+    font-size: 16px;
+    font-weight: normal;
+    padding: 10px;
+  }
+
+  .post .post-content > img {
+    width: 100%;
+    margin: 5px 0px;
+  }
+  .post-content img.post-image {
+  
+    max-width: 100%; 
+    height: auto;
+    display: block; 
+    margin: 10px auto; 
+  }
+
+  .post .post-bottom {
+    box-shadow: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 5px 0px 5px;
+  }
+
+  .post .post-bottom .action {
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in;
+    cursor: pointer;
+  }
+
+  .post .post-bottom .action:hover {
+    background: #eee;
+  }
+
+  .post.create .post-bottom > .action {
+    color: #d74;
+  }
+
+  .container .right-panel {
+    padding: 1rem;
+  }
+
+  .text-center {
+    position: absolute;
+    top: -10px;
+  }
+</style>
+<body>
+    {% include 'newNav.html' with user=user %}
+    <div class="container">
+      <div class="middle-panel">
+        <div class="post"style="position: relative;">
+          <div class="dropdown-top-left"  data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-ellipsis-h"></i>
+            <div class="dropdown">
+              
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <a class="dropdown-item edit" href="#">Modifier</a>
+                </li>
+                <li><a class="dropdown-item supp" href="#"onclick="deletePost('{{ post.id }}')">Supprimer</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="post-top">
+            <div class="dp">
+              
+              <img src="{{ post.user.profile.image.url }}" alt="" />
+            </div>
+            <div class="post-info">
+              <p class="name">{{ post.user.username }}</p>
+              <span class="time">{{ post.date }}</span>
+            </div>
+          
+          </div>
+          <div class="post-content">
+            <p>{{ post.description }} </p>
+            {% if post.cat == 0 %}
+              <p>Departure: {{ post.point_depart }}</p>
+              <p>Destination: {{ post.destination }}</p>
+              <p>Heure de départ: {{ post.heure_depart }}</p>
+              <p>Nombres des Places: {{ post.nb_places }}</p>
+              <p>Contact: {{ post.contactinfo }}</p>
+          
+            <!-- Add more attributes specific to 'Trajet' -->
+              {% elif post.cat == 1 %}
+                  <!-- If post is an instance of 'Logement' -->
+                  <p>Address: {{ post.locatlisation }}</p>
+                  <p>Contact: {{ post.contactinfo }}</p>
+                  <!-- Add more attributes specific to 'Logement' -->
+              {% endif %}
+                
+                
+                  {% if post.image %}
+                  <img class="post-image" src="/media/{{ post.image }}" alt="" />  
+                  {% endif %}
+        
+    
+          </div>
+          <div class="post-bottom">
+            <div>
+    
+              <div class="action">
+                <i class="far fa-thumbs-up"></i>
+                <span onclick="handleLike(this, '{{ post.id }}')">J'aime</span>
+              </div>
+              <span onclick="showLikersModal('{{ post.id }}')" class="small" style="color: gray; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#likersModal">
+                {% with reactions_count=post.post_reactions.all.count %}
+                <a> {{ reactions_count }}</a> aiment ce poste
+                {% endwith %}
+              </span>
+              
+            </div>
+              <div class="action" data-toggle="modal" data-target="#addCommentModal">
+              <i class="far fa-comment"></i>
+    
+              <span>Comment</span>
+            </div>
+        
+            <!-- Display reactions -->
+            
+          </div>
+          
+         
+        </div>
+    </div>
+          <!-- Modal -->
+        <div class="modal fade" id="addCommentModal" tabindex="-1" role="dialog" aria-labelledby="addCommentModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addCommentModalLabel">Add Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!-- Comment form -->
+                <form id="commentForm">
+                  <div class="form-group">
+                    <label for="commentText">Your Comment</label>
+                    <textarea class="form-control" id="commentText" rows="3" name="commentText" required></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="submit('{{post.id}}')" type="button" class="btn btn-primary" id="submitComment">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         
+          <div class="reactions">
+                     <!-- Modal -->
+                     <div class="modal fade" id="likersModal" tabindex="-1" aria-labelledby="likersModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="likersModalLabel">Likers</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        {% for reaction in reactions %}
+                          {% if post.user.id == reaction.user.id %}
+                            <ul class="list-group ">
+                            </ul>
+                          {% endif %}
+                        {% endfor %}
+                        <ul id="likersList">
+                          {% for reaction in reactions %}
+                            <li>{{ reaction.user.username }}</li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                      
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        </div>
+      
+        </div>
+      </div>
+
+      <!-- Your remaining HTML content -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    
+</body>
+</html>

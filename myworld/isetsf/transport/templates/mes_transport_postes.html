@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Your Transport Postes</title>
+</head>
+<body>
+    {% include 'navTransport.html' %}
+    <div class="container">
+        <h1 class="text-center mt-5 text-info">Vos Postes de covoiturage</h1>
+        <div class="list-group mt-5">
+            {% for poste in postes %}
+                <div class="list-group-item">
+                    <span class="small">{{ poste.date }}</span>
+                    <br>
+                    <strong>Type:</strong> {{ poste.get_type_display }}<br>
+                    <strong>From:</strong> {{ poste.point_depart }}<br>
+                    <strong>To:</strong> {{ poste.destination }}<br>
+                    <strong>Departure:</strong> {{ poste.heure_depart }}<br>
+                    <strong>Place(s) disponibles:</strong> {{ poste.nb_places }}<br>
+                    <strong>Contact:</strong> {{ poste.conducteur.email }}<br>
+                    <div class="mt-4">
+                        <button class="btn btn-outline-info">Edit</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

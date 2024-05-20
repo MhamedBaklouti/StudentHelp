@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <title>Profile</title>
+</head>
+<style>
+    :root {
+        --primary-bg: ##e4e9e7;
+        --secondary-bg: #262626;
+        --accent-bg: #a53534;
+    
+        --primary-color: #a53534;
+        --secondary-color: a53534(255, 19, 19, 0.7);
+        --accent-color: #08b6eb;
+    
+        --border-color: a53534;
+        
+        --username-size: 32px;
+        --title-size: 28px;
+        --subtitle: 24px;
+    }
+    
+    .mes-postes {
+        background-image: url(images/banner.jpg);
+        background-size: cover;
+    }
+    
+    /* ---------- body element's */
+    .liked{
+      color: blue;
+    }
+    .home {
+        position: relative;
+        font-family: Poppins;
+        height: 100vh;
+        padding: 32px;
+        display: grid;
+        place-items: center;
+        background-color: var(--background);
+        left: 250px;
+        width: calc(100% - 250px);
+        transition: var(--body-color);
+        transition: var(--tran-05);
+    }
+    .container {
+        position: relative;
+        backdrop-filter: blur(20px);
+        left: 250px;
+        width: calc(100% - 250px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: var(--body-color);
+        transition: var(--tran-05);
+        
+    }
+    .sidebar.close ~ .container {
+      left: 88px;
+      width: calc(100% - 88px);
+    }
+    
+    .profile-card {
+        position: fixed;
+        overflow: hidden;
+        border-left:1px dotted #3F8CFF;
+        border-right:1px dotted #3F8CFF;
+        border-top:1px dotted #3F8CFF;
+        top: 10px;
+        left: 0px;
+        width: 100%;
+        height: max-content;
+        margin-bottom:10%;
+        background-color: var(--primary-bg);
+        border-radius: 40px;
+        
+        
+        display: grid;
+        grid-template-rows: 220px auto;
+        overflow: auto;
+    }
+    /* ------ profile header section */
+    .profile-header {
+        background-color:#a53534;
+        background-size: cover;
+        margin: 5px 5px 0px 5px;
+        border-radius: 30px 30px 0 0;
+        position: relative;
+    }
+        .main-profile {
+            display: flex;
+            
+            align-items: center;
+            position: absolute;
+            inset: calc(100% - 75px) auto auto 70px;
+        }
+            .profile-image {
+                width: 150px;
+                height: 150px;
+                border: 10px solid #a53534;
+                
+                background-size: cover;
+                border-radius: 50%;
+            }
+            .profile-names {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                color: var(--primary-color);
+                background-color: var(--primary-bg);
+                padding: 10px 30px;
+                border-radius: 0 50px 50px 0;
+                transform: translateX(-10px);
+            }
+                .page-title {
+                    color: var(--accent-bg);
+                    font-size:15px;
+                }
+                .middle-panel {
+                    border:1px dotted #3F8CFF;
+                    border-radius: 10%;
+                    display: flex;
+                    flex-direction: column-reverse;
+                    align-items: center;
+                    margin-top: 50%;
+                    margin-bottom: 20%;
+                    padding-top: 50px;
+                  }
+                  .edit:hover{
+                    background-color: #3F8CFF;
+                    color: #fff;
+                  }
+                  .supp:hover{
+                    background-color: #DF3731;
+                    color: #fff;
+                  }
+              
+                  .middle-panel .story-section {
+                    display: flex;
+                    padding: 1rem;
+                  }
+              
+                  .middle-panel .story-section .story {
+                    width: 120px;
+                    height: 200px;
+                    border-radius: 10px;
+                    position: relative;
+                    overflow: hidden;
+                    cursor: pointer;
+                    margin: 0px 5px;
+                    box-shadow: 0 0 5px 5px #ddd;
+                    background: #fff;
+                  }
+              
+                  .middle-panel .story-section .story > img {
+                    height: 100%;
+                    transition: 0.3s ease-in;
+                  }
+              
+                  .middle-panel .story-section .story:hover > img {
+                    transform: scale(1.05);
+                  }
+              
+                  .middle-panel .story-section .story .dp-container {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    position: absolute;
+                    top: 10px;
+                    left: 10px;
+                    border: royalblue 4px solid;
+                  }
+              
+                  .middle-panel .story-section .story .dp-container > img {
+                    width: 100%;
+                    height: 100%;
+                  }
+              
+                  .middle-panel .story-section .story .name {
+                    position: absolute;
+                    bottom: 0px;
+                    left: 0px;
+                    padding: 5px;
+                    color: #fff;
+                    font-weight: bold;
+                  }
+              
+                  .middle-panel .story-section .story.create .dp-image {
+                    height: 80%;
+                    overflow: hidden;
+                  }
+              
+                  .middle-panel .story-section .story.create .dp-image img {
+                    width: 100%;
+                  }
+              
+                  .middle-panel .story-section .story.create .dp-container {
+                    top: 70%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    display: grid;
+                    place-items: center;
+                    background: royalblue;
+                    border: 4px solid #fff;
+                  }
+              
+                  .middle-panel .story-section .story.create .dp-container i {
+                    color: #fff;
+                  }
+              
+                  .middle-panel .story-section .story.create .name {
+                    color: #000;
+                    font-size: 15px;
+                    left: 10px;
+                  }
+              
+                  .post {
+                    width: 550px;
+                    background: #fff;
+                    border-radius: 10px;
+                    padding: 10px;
+                    margin: 10px;
+                    
+                  }
+              
+                  .post .post-top {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px;
+                  }
+              
+                  .post .post-top .dp {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                  }
+              
+                  .post .post-top .dp > img {
+                    width: 100%;
+                    cursor: pointer;
+                  }
+              
+                  .post .post-top .post-info {
+                    margin-left: 10px;
+                    margin-bottom: 10px;
+                    font-weight: bold;
+                  }
+              
+                  .post .post-top .post-info .name {
+                    cursor: pointer;
+                    font-size: 16px;
+                  }
+              
+                  .post .post-top .post-info .time {
+                    font-size: 12px;
+                    cursor: pointer;
+                  }
+                  .dropdown-top-left {
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                  }
+                  .dropdown-top-left:hover {
+                    cursor: pointer;
+                  }
+              
+                  .post .post-top i {
+                    margin-left: auto;
+                    cursor: pointer;
+                  }
+              
+                  .post .post-top > input {
+                    height: 40px;
+                    padding: 5px 10px;
+                    border-radius: 25px;
+                    outline: none;
+                    border: none;
+                    flex: 1;
+                    background: #eee;
+                    margin-left: 10px;
+                  }
+              
+                  .post .post-content {
+                    font-size: 16px;
+                    font-weight: normal;
+                    padding: 10px;
+                  }
+              
+                  .post .post-content > img {
+                    width: 100%;
+                    margin: 5px 0px;
+                  }
+                  .post-content img.post-image {
+                  
+                    max-width: 100%; 
+                    height: auto;
+                    display: block; 
+                    margin: 10px auto; 
+                  }
+              
+                  .post .post-bottom {
+                    box-shadow: 1px solid #ddd;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 5px 5px 0px 5px;
+                  }
+              
+                  .post .post-bottom .action {
+                    padding: 10px;
+                    border-radius: 10px;
+                    transition: 0.3s ease-in;
+                    cursor: pointer;
+                  }
+              
+                  .post .post-bottom .action:hover {
+                    background: #eee;
+                  }
+              
+                  .post.create .post-bottom > .action {
+                    color: #d74;
+                  }
+    /* ------- profile body header */
+    .profile-body {
+        display: grid;
+        grid-template-columns: 150px auto;
+        gap: 70px;
+        padding: 70px;
+    }
+        .profile-actions {
+            display: grid;
+            grid-template-rows: repeat(2, max-content) auto;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        .profile-actions button {
+            all: unset;
+            padding: 10px;
+            color: var(--primary-color);
+            border: 2px solid a53534;
+            text-align: center;
+            border-radius: 10px;
+        }
+            .profile-actions .follow {background-color: var(--accent-bg)}
+            .profile-actions .message {background-color: var(--accent-color)}
+        .bio {
+            color: var(--primary-color);
+            background-color: var(--secondary-bg);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+            .bio-header {
+                display: flex;
+                gap: 10px;
+                border-bottom: 1px solid var(--border-color);
+                color: var(--secondary-color);
+            }
+        .account-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 2fr 1fr;
+            gap: 20px;
+        }
+            .data {
+                grid-area: 1/1/2/3;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                color: var(--secondary-color);
+                padding: 30px;
+                text-align: center;
+                border: 3px solid #a53534;
+                border-radius: 15px;
+            }
+                .important-data {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .other-data {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+    
+                    
+                    background-color: #a53534;
+                    padding: 15px;
+                    border-radius: 10px;
+                }
+                .data-item .value {
+                    color: var(--accent-color);
+                }
+                    .important-data .value {
+                        font-size: var(--title-size);
+                    }
+                    .other-data .value {
+                        font-size: var(--subtitle);
+                    }
+            .social-media {
+                grid-area: 2/1/3/3;
+                background-color: var(--secondary-bg);
+                color: var(--secondary-color);
+                padding: 15px;
+                border-radius: 10px;
+    
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+                .media-link {
+                    text-decoration: none;
+                    color: var(--accent-color);
+                    font-size: var(--subtitle);
+                }
+            .last-post {
+                grid-area: 1/3/3/4;
+                border: 1px solid var(--border-color);
+                background-color: var(--secondary-bg);
+                border-radius: 10px;
+                padding: 10px;
+    
+                display: grid;
+                grid-template-rows: 70% auto max-content;
+                gap: 10px;
+            }
+                .post-cover {
+                    position: relative;
+                    background: url('/images/last-post.jpg') center;
+                    background-size: cover;
+                    border-radius: 5px;
+                }
+                    .last-badge {
+                        position: absolute;
+                        inset: 3px 3px auto auto;
+                        background-color: rgba(0,0,0, 70%);
+                        color: var(--primary-color);
+                        padding: 5px;
+                        border-radius: 3px;
+                    }
+                .post-title {
+                    color: var(--primary-color);
+                    font-size: 18px;
+                }
+                .post-CTA {
+                    all: unset;
+                    text-align: center;
+                    border: 1px solid var(--accent-color);
+                    color: var(--accent-color);
+                    border-radius: 5px;
+                    padding: 5px;
+                }
+    
+    @media screen and (max-width: 950px) {
+        .last-post {
+            display: none;
+        }
+        .data, .social-media {
+            grid-column: 1/4;
+        }
+    }
+    
+    
+    @media screen and (max-width: 768px) {
+        .profile-card {
+            height: 100%;
+            border-radius: 0;
+        }
+            .profile-header {
+                border-radius: 0;
+            }
+                .main-profile {
+                    inset: calc(100% - 75px) auto auto 50%;
+                    transform: translateX(-50%);
+    
+                    flex-direction: column;
+                    text-align: center;
+                }
+                    .profile-names {transform: translateX(0)}
+            .profile-body {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+                .profile-actions {
+                    grid-template-columns: repeat(2, 1fr);
+                    margin-top: 90px;
+                }
+                    .bio {grid-column: 1/3;}
+    
+                .data {gap: 20px;}
+    }
+</style>
+<body class="mes-postes">
+    {% include 'newNav.html' with user=user %}
+    
+    <div class="container">
+
+        <div class="profile-card">
+            <div class="profile-header"><!-- profile header section -->
+                <div class="main-profile">
+                    <div class="profile-image" style="background-image: url('{{ user.profile.image.url }}');"></div>
+                    <div class="profile-names">
+                        <h1 class="username" style="color: #E4F8FF;">{{user.first_name}} {{user.last_name}}</h1>
+                        <small class="page-title">Etudiant</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-body"><!-- profile body section -->
+                <div class="profile-actions">
+                    <button class="follow">Follow</button>
+                    <button class="message" style="color: #a53534;">Message</button>
+                    
+                </div>
+
+                <div class="account-info">
+                    <div class="data">
+                        <div class="important-data">
+                            <section class="data-item">
+                                <h3 class="value">{{ post_count }}</h3>
+                                <small class="title">Postes</small>
+                            </section>
+                            <section class="data-item">
+                                <h3 class="value">21K</h3>
+                                <small class="title">Follower</small>
+                            </section>
+                            </section>
+                            <section class="data-item">
+                                <h3 class="value">51</h3>
+                                <small class="title">Following</small>
+                            </section>
+                        </div>
+                        <div class="other-data">
+                            <section class="data-item">
+                                <h3 class="value">{{ like_count }}</h3>
+                                <small class="title">Likes</small>
+                            </section>
+                            <section class="data-item">
+                                <h3 class="value">{{ comment_count }}</h3>
+                                <small class="title">Comments</small>
+                            </section>
+                            
+                        </div>
+                    </div>
+
+                
+
+                    
+                </div>
+            </div>
+        </div>
+        <div class="middle-panel">
+          {% for post in posts_with_type %}
+          <div class="post" style="position: relative;">
+            {% if post.details.user == user %}
+              <div class="dropdown-top-left" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-ellipsis-h"></i>
+                <div class="dropdown">
+                  <ul class="dropdown-menu" role="menu">
+                    <a class="dropdown-item edit" onclick="openEditModal('{{ post.type }}')" data-toggle="modal" data-target="#editModal">Modifier</a>
+                    <li>
+                      <a class="dropdown-item supp" href="#" onclick="deletePost('{{ post.details.id }}')">Supprimer</a></li>
+                  </ul>
+                </div>
+              </div>
+            {% endif %}
+            
+            <div class="post-top">
+              <div class="dp">
+                <img src="{{ post.details.user.profile.image.url }}" alt="" />
+              </div>
+              <div class="post-info">
+                <p class="name">{{ post.details.user.username }}</p>
+                <span class="time">{{ post.details.date }}</span>
+              </div>
+            </div>
+
+            {% if post.type == 'trajet' %}
+            <div class="post-content">
+              <p><strong>Description: </strong>{{ post.details.description }}</p>
+                <p><strong> Destination: </strong> {{ post.details.destination }}</p>
+                <p><strong> Nombre de places: </strong> {{ post.details.nb_places }}</p>
+                <p><strong> Point de départ: </strong> {{ post.details.point_depart }}</p>
+                <p><strong> Localisation: </strong> {{ post.details.heure_depart }}</p>
+
+                <p><strong>Contact: </strong> {{ post.details.contactinfo }}</p>
+                
+                {% if post.details.image %}
+                  <img class="post-image" src="/media/{{ post.details.image }}" alt="" />
+                {% endif %}
+            </div>
+          {% endif %}
+
+            
+            {% if post.type == 'logement' %}
+              <div class="post-content">
+                <p><strong>Description: </strong>{{ post.details.description }}</p>
+                  <p><strong> Localisation: </strong> {{ post.details.localisation }}</p>
+  
+                  <p><strong>Contact: </strong> {{ post.details.contactinfo }}</p>
+                  
+                  {% if post.details.image %}
+                    <img class="post-image" src="/media/{{ post.details.image }}" alt="" />
+                  {% endif %}
+              </div>
+            {% endif %}
+            
+            <div class="post-bottom">
+              <div>
+                <div class="action">
+                  <i class="far fa-thumbs-up"></i>
+                  <span onclick="handleLike(this, '{{ post.details.id }}')">J'aime</span>
+                </div>
+                <span onclick="showLikersModal('{{ post.details.id }}')" class="small" style="color: gray; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#likersModal">
+                  {% with reactions_count=post.details.post_reactions.all.count %}
+                    <a>{{ reactions_count }}</a> aiment ce poste
+                  {% endwith %}
+                </span>
+              </div>
+              
+              <div class="action" data-toggle="modal" data-target="#addCommentModal">
+                <i class="far fa-comment"></i>
+                <span>Comment</span>
+              </div>
+            </div>
+            
+            <!-- Modal for Adding Comment -->
+            <div class="modal fade" id="addCommentModal" tabindex="-1" role="dialog" aria-labelledby="addCommentModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addCommentModalLabel">Add Comment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="commentForm">
+                      <div class="form-group">
+                        <label for="commentText">Your Comment</label>
+                        <textarea class="form-control" id="commentText" rows="3" name="commentText" required></textarea>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button onclick="submit('{{post.id}}')" type="button" class="btn btn-primary" id="submitComment">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Modal for Showing Likers -->
+            <div class="modal fade" id="likersModal" tabindex="-1" aria-labelledby="likersModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="likersModalLabel">Likers</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <ul id="likersList" class="list-group">
+
+                    </ul>
+                </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+<!-- Bootstrap modal for editing -->
+{% if post.type == 'logement' %}
+         
+<div class="modal fade" id="editLogementModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modifier  {{post.type}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="editLogementForm" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="logementId" name="logementId" value="">
+                <div class="form-group">
+                    <label for="localisation" class="col-form-label">Localisation:</label>
+                    <input  type="text" class="form-control" id="localisation" name="localisation" value="{{post.details.localisation}}">
+                </div>
+                <div class="form-group">
+                    <label for="description" class="col-form-label">Description:</label>
+                    <textarea class="form-control" id="description" name="description"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Confirmer</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          </div>
+    </div>
+</div>
+</div>
+{% elif post.type == 'trajet' %}
+
+<div class="modal fade" id="editTrajetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifier  {{post.type}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <form id="editLogementForm" method="POST">
+              {% csrf_token %}
+              <input type="hidden" id="logementId" name="logementId" value="post.id">
+              <div class="form-group">
+                  <label for="localisation" class="col-form-label">Description:</label>
+                  <input  type="text" class="form-control" id="description" name="description" value="{{post.details.description}}">
+              </div>  
+              <div class="form-group">
+                  <label for="description" class="col-form-label">Destination</label>
+                  <input class="form-control" id="destination" name="destination" value = "{{post.details.destination}}"/>
+              </div>
+              <div class="form-group">
+                  <label for="description" class="col-form-label">Nombre de places</label>
+                  <input class="form-control" id="nb_places" name="nb_places" value="{{post.details.nb_places}} place"/>
+              </div>
+              <div class="form-group">
+                  <label for="description" class="col-form-label">Point de départ</label>
+                  <input class="form-control" id="point_depart" name="point_depart" value="{{post.details.point_depart}}"/>
+              </div>
+              <div class="form-group">
+                  <label for="description" class="col-form-label">Contact</label>
+                  <input class="form-control" id="contact" name="contact" value="{{post.details.contactinfo}}"/>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <button onclick="editTrajet('{{post.details.id}}')" type="submit" class="btn btn-primary">Confirmer</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        </div>
+                        </div>
+                    </div>
+                  </div>
+          {% endif %}
+        {% endfor %}
+
+    </div>
+    <script>
+      function editTrajet(id){
+        const description = document.getElementById('description').value; // Get the comment text or other data you want to send
+        const destination = document.getElementById('destination').value; // Get the comment text or other data you want to send
+        const nb_places = document.getElementById('nb_places').value; // Get the comment text or other data you want to send
+        const point_depart = document.getElementById('point_depart').value; // Get the comment text or other data you want to send
+        const contactinfo= document.getElementById('contact').value; // Get the comment text or other data you want to send
+        const data = {
+                        id:id,
+                        description:description,
+                        destination:destination,
+                        nb_places:nb_places,
+                        point_depart:point_depart,
+                        contactinfo:contactinfo
+                     }
+                     console.log(data);
+        
+                     $.ajax({
+                url: '/edit-trajet/' + id ,  
+                headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token for POST requests
+            },
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function (response) {
+                    $('#exampleModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert('Error editing logement.');
+                }
+            });
+      }
+      
+      function openEditModal(postType) {
+        if(postType == 'logement')
+            $('#editLogementModal').modal('show');
+        else if(postType == 'trajet')
+          $('#editTrajetModal').modal('show');
+    
+    }
+    
+    
+     $(document).ready(function () {
+                $('.edit-logement').click(function () {
+            var logementId = $(this).data('id');
+            var card = $(this).closest('.card'); // Find the parent card element
+            var localisation = card.find('.localisation').text().trim(); // Extract localisation
+            var description = card.find('.description').text().trim(); // Extract description
+            var type = card.find('.badge').text().trim(); // Extract type (offre or demande)
+            var image = card.find('.card-img-top').attr('src'); // Extract image URL
+            
+            // Update modal with extracted data
+            $('#logementId').val(logementId);
+            $('#localisation').val(localisation);
+            $('#description').val(description);
+        });
+                
+                $('#editLogementForm').submit(function (e) {
+                    e.preventDefault();
+                    var logementId = $('#logementId').val();
+                    $.ajax({
+                        url: '/edit_logement/' + logementId ,  
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            location.reload();
+                            $('#exampleModal').modal('hide');
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(xhr.responseText);
+                            alert('Error editing logement.');
+                        }
+                    });
+                });
+                
+     })
+    
+        function submit (postId) {
+        let commentText = $('#commentText').val().trim();
+          
+        if (commentText !== '') {
+            // Perform AJAX request to submit the comment
+            console.log(commentText);
+            $.ajax({
+                url: '/add_comment/',  // Check this URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token for POST requests
+                },
+                data: JSON.stringify({ commentText: commentText }), // Include postId data
+                success: function(data) {
+                    console.log(data); // Log the response from the server for debugging
+                    // Update the UI or perform any actions based on the response
+                    if (data.success) {
+                        console.log('Comment added successfully:', data);
+                        $('#addCommentModal').modal('hide');              
+                    } else {
+                        // Handle error (e.g., display error message)
+                        console.error('Error adding comment:', data.error);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors from the AJAX request
+                    console.error('Error:', error);
+                }
+            });
+        } else {
+            // Display an error message if the comment text is empty
+            alert('Please enter a comment.');
+        }
+    }
+    
+          
+      // Function to fetch and display likers in the modal
+    function showLikersModal(postId) {
+        fetch(`/get_likers/${postId}/`)
+            .then(response => response.json())
+            .then(data => {
+              console.log(data)
+                const likersList = document.getElementById('likersList');
+                likersList.innerHTML = ''; // Clear previous likers
+    
+                data.likers.forEach(liker => {
+                    const li = document.createElement('li');
+                    const profileImage = document.createElement('img');
+    
+                    profileImage.style.width = "30px";
+                    profileImage.style.height = "30px";
+                    profileImage.style.borderRadius = "50%";
+                    profileImage.style.margin = "15px";
+    
+                    profileImage.src = liker.profile; // Assuming 'profile' is the URL for the profile image
+    
+                    li.setAttribute('class', 'list-group-item');
+    
+                    // Append the profile image and username to the list item
+                    li.appendChild(profileImage);
+                    li.appendChild(document.createTextNode(liker.username));
+    
+                    // Append the list item to the likersList
+                    likersList.appendChild(li);
+                });
+    
+                // Show the modal
+                var myModal = new bootstrap.Modal(document.getElementById('likersModal'), {
+                    keyboard: false
+                });
+                myModal.show();
+            })
+            .catch(error => {
+                console.error('Error fetching likers:', error);
+            });
+    }
+    
+    
+    function handleLike(element, postId) {
+      let currentLikeCount = parseInt(element.parentElement.parentElement.children[1].children[0].textContent);
+      if ($(element).parent().hasClass('liked')) {
+        currentLikeCount-=1;
+      }else{
+        
+        // Increment the like count by 1
+        currentLikeCount += 1;
+        
+      }
+      $(element).parent().toggleClass('liked');
+      // Log the incremented like count
+        element.parentElement.parentElement.children[1].children[0].textContent = currentLikeCount;
+        console.log(currentLikeCount);
+        $.ajax({
+            url: `/like/${postId}/`,
+            type: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token for POST requests
+            },
+            data: JSON.stringify({ postId: postId }),
+            success: function(data) {
+                console.log(data); // Log the response from the server for debugging
+                // Update the UI or perform any actions based on the response
+                if (data.success) {
+                    // Update UI to indicate the like was successful
+                    $(element).parent().toggleClass('liked');
+                    $(element).next().text(data.reactionCount);
+                } else {
+                    // Handle errors or display a message to the user
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle errors from the AJAX request
+                console.error('Error:', error);
+            }
+        });
+    
+      }
+    // Inside your <script> tag or separate JS file
+      function deletePost(postId) {
+        $.ajax({
+            url: `/delete_post/${postId}/`,
+            type: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            success: function(data) {
+                if (data.success) {
+                    // Post deleted successfully, you can update UI or take other actions
+                    location.reload(); // Reload the page to reflect changes
+                } else {
+                    // Handle error response from the server
+                    console.error('Error:', data.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle AJAX error
+                console.error('AJAX Error:', error);
+            }
+        });
+    }
+    
+    
+    // Function to fill modal with post data and show the edit modal
+    function showEditModal(postId) {
+      // Fetch post data based on postId (you need to implement this part)
+    
+      // For demonstration purposes, let's assume you have the post data in a variable named postData
+      const postData = {
+        content: 'Sample post content', // Replace with actual post content
+      };
+    
+      // Fill the edit post modal input field with the post content
+      $('#editPostContent').val(postData.content);
+    
+      // Show the edit post modal
+      $('#editPostModal').modal('show');
+    }
+    
+    // Inside your <script> tag or separate JS file
+    function submitEdit(postId) {
+      const editedContent = $('#editPostContent').val().trim();
+      
+      // Perform AJAX request to update the post content
+      $.ajax({
+        url: `/edit_post/${postId}/`, // Replace with your actual URL for editing posts
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token for POST requests
+        },
+        data: JSON.stringify({ editedContent: editedContent }),
+        success: function(data) {
+          console.log(data); // Log the response from the server for debugging
+          if (data.success) {
+            console.log('Post edited successfully:', data);
+            $('#editPostModal').modal('hide'); // Hide the edit post modal
+            // Update the UI or perform any actions based on the response
+          } else {
+            // Handle error (e.g., display error message)
+            console.error('Error editing post:', data.error);
+          }
+        },
+        error: function(xhr, status, error) {
+          // Handle errors from the AJAX request
+          console.error('Error:', error);
+        }
+      });
+    }
+    
+    
+    
+    
+    </script>
+</body>
+</html>
